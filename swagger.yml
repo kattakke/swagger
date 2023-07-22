@@ -36,7 +36,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/ApiResponse'
       security:
         - api_key: []
   /auth/login:
@@ -63,7 +63,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/ApiResponse'
       security:
         - api_key: []
   
@@ -80,7 +80,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/ApiResponse'
     
   /users:
     post:
@@ -105,7 +105,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/ApiResponse'
   /users/{userId}:
     get:
       tags:
@@ -148,7 +148,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/ApiResponse'
     delete:
       tags:
         - user
@@ -169,7 +169,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/ApiResponse'
   /users/{userId}/shelf:
     get:
       tags:
@@ -224,7 +224,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Book'
+              type: object
+              properties:
+                isbn:
+                  type: string
+                title:
+                  type: string
+                author:
+                  type: string
       responses:
         '200':
           description: successful operation
@@ -268,6 +275,18 @@ paths:
           schema:
             type: string
             format: UUID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                isbn:
+                  type: string
+                title:
+                  type: string
+                author:
+                  type: string
       responses:
         '200':
           description: successful operation
@@ -295,7 +314,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Book'
+                $ref: '#/components/schemas/ApiResponse'
   /search:
     get:
       tags:
@@ -322,7 +341,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Book'
+                type: object
+                properties:
+                  isbn:
+                    type: string
+                  title:
+                    type: string
+                  author:
+                    type: string
   
       
 components:
