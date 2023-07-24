@@ -22,6 +22,8 @@ tags:
     description: book
   - name: search
     description: search
+  - name: etc
+    description: etc
 paths:
   /auth/me:
     get:
@@ -349,8 +351,20 @@ paths:
                     type: string
                   author:
                     type: string
-  
-      
+  /health:
+    get:
+      tags:
+        - etc
+      summary: Health Check API
+      description: Always return 200
+      operationId: healthCheck
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
 components:
   schemas:
     Book:
