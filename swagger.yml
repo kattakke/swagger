@@ -14,7 +14,7 @@ externalDocs:
   description: Find out more about Kattakke
   url: http://localhost/
 servers:
-  - url: http://localhost/api/v3
+  - url: http://localhost/api/v0
 tags:
   - name: auth
     description: Auth
