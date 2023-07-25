@@ -39,8 +39,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
-      security:
-        - api_key: []
+
   /auth/login:
     post:
       tags:
@@ -437,4 +436,3 @@ components:
           type: string
       xml:
         name: '##default'
-        
