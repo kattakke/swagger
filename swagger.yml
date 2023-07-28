@@ -32,6 +32,8 @@ paths:
       summary: Returns me
       description: Returns me
       operationId: authMe
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: successful operation
@@ -39,7 +41,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
-
   /auth/login:
     post:
       tags:
@@ -73,6 +74,8 @@ paths:
       summary: logout
       description: logout
       operationId: authLogout
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: successful operation
@@ -436,3 +439,8 @@ components:
           type: string
       xml:
         name: '##default'
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT    # optional, arbitrary value for documentation purposes
