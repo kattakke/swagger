@@ -222,6 +222,8 @@ paths:
       summary: post book info
       description: post book info
       operationId: postBook
+      security:
+        - bearerAuth: []
       requestBody:
         content:
           application/json:
