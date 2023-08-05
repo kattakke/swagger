@@ -136,6 +136,8 @@ paths:
       summary: patch user info
       description: patch user info
       operationId: patchUserInfo
+      security:
+        - bearerAuth: []
       parameters:
         - name: userId
           in: path
@@ -157,6 +159,8 @@ paths:
       summary: delete user info
       description: delete user info
       operationId: deleteUserInfo
+      security:
+        - bearerAuth: []
       parameters:
         - name: userId
           in: path
