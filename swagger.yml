@@ -146,6 +146,16 @@ paths:
           schema:
             type: string
             format: UUID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                password:
+                  type: string
       responses:
         '200':
           description: successful operation
