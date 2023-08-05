@@ -372,7 +372,7 @@ components:
     Book:
       type: object
       properties:
-        bookdId:
+        bookId:
           type: string
           format: UUID
         isbn:
