@@ -250,6 +250,8 @@ paths:
                   type: string
                 author:
                   type: string
+                imagePath:
+                  type: string
       responses:
         '200':
           description: successful operation
@@ -305,6 +307,8 @@ paths:
                   type: string
                 author:
                   type: string
+                imagePath:
+                  type: string
       responses:
         '200':
           description: successful operation
@@ -359,14 +363,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  isbn:
-                    type: string
-                  title:
-                    type: string
-                  author:
-                    type: string
+                $ref: '#/components/schemas/Book'
   /health:
     get:
       tags:
@@ -403,6 +400,8 @@ components:
         updatedAt:
           type: string
           format: date-time
+        imagePath:
+          type: string
     
     User:
       type: object
