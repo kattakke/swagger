@@ -18,6 +18,8 @@ servers:
 tags:
   - name: auth
     description: Auth
+  - name: user
+    description: user
   - name: book
     description: book
   - name: search
@@ -29,8 +31,8 @@ paths:
     get:
       tags:
         - auth
-      summary: Returns me
-      description: Returns me
+      summary: get authrized user info
+      description: get authrized user info
       operationId: authMe
       security:
         - bearerAuth: []
@@ -41,12 +43,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+
   /auth/login:
     post:
       tags:
         - auth
-      summary: Returns me
-      description: Returns me
+      summary: get authorize token
+      description: get authorize token
       operationId: authLogin
       requestBody:
         content:
@@ -58,38 +61,33 @@ paths:
                   type: string
                 password:
                   type: string
-                
       responses:
         '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
-  
+                type: string
+
   /auth/logout:
     patch:
       tags:
         - auth
-      summary: logout
-      description: logout
+      summary: delete token
+      description: delete token
       operationId: authLogout
       security:
         - bearerAuth: []
       responses:
         '200':
           description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-    
+
   /users:
     post:
       tags:
         - user
-      summary: register
-      description: register
+      summary: register user
+      description: register user
       operationId: userRegister
       requestBody:
         content:
@@ -102,12 +100,9 @@ paths:
                 password:
                   type: string
       responses:
-        '200':
+        '201':
           description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
+
   /users/{userId}:
     get:
       tags:
@@ -159,10 +154,6 @@ paths:
       responses:
         '200':
           description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
     delete:
       tags:
         - user
@@ -182,10 +173,7 @@ paths:
       responses:
         '200':
           description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
+
   /users/{userId}/shelf:
     get:
       tags:
@@ -227,8 +215,8 @@ paths:
               schema:
                 type: array
                 items:
-                  type: string
-                  format: UUID
+                  $ref: '#/components/schemas/Book'
+
   /books:
     post:
       tags:
@@ -259,6 +247,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Book'
+
   /books/{bookId}:
     get:
       tags:
@@ -333,10 +322,7 @@ paths:
       responses:
         '200':
           description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
+
   /search:
     get:
       tags:
@@ -363,7 +349,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Book'
+                $ref: '#/components/schemas/BookSearch'
+
   /health:
     get:
       tags:
@@ -374,10 +361,7 @@ paths:
       responses:
         '200':
           description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
+
 components:
   schemas:
     Book:
@@ -402,7 +386,21 @@ components:
           format: date-time
         imagePath:
           type: string
-    
+
+    BookSearch:
+      type: object
+      properties:
+        isbn:
+          type: string
+          nullable: true
+        title:
+          type: string
+        author:
+          type: string
+          nullable: true
+        imagePath:
+          type: string
+
     User:
       type: object
       properties:
@@ -411,20 +409,10 @@ components:
           format: UUID
         name:
           type: string
-        password:
-          type: string
-        jwt-secret:
-          type: string
         shelf:
           type: string
           format: UUID
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-    
+
     Shelf:
       type: object
       properties:
@@ -442,20 +430,9 @@ components:
         updatedAt:
           type: string
           format: date-time
-    ApiResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        type:
-          type: string
-        message:
-          type: string
-      xml:
-        name: '##default'
+
   securitySchemes:
-    bearerAuth:            # arbitrary name for the security scheme
+    bearerAuth:
       type: http
       scheme: bearer
-      bearerFormat: JWT    # optional, arbitrary value for documentation purposes
+      bearerFormat: JWT
