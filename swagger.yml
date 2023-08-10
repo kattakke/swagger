@@ -363,7 +363,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BookSearch'
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookSearch'
 
   /health:
     get:
